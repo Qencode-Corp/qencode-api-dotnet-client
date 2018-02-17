@@ -10,8 +10,9 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var apiKey = "5a2a846a26ace";
-            var transcodingProfile = "5a2a846a26e88";
+            var apiKey = "yourApiKey";
+            var transcodingProfile = "yourTranscodingProfileID";
+            var transferMethod = "yourTransferMethodID";
             var videoUrl = "https://qa.stagevids.com/static/1.mp4";
             try
             {
@@ -21,7 +22,7 @@ namespace ConsoleApp
                 var task = q.CreateTask();
                 Console.WriteLine("Created new task: " + task.TaskToken);
                 TranscodingTaskStatus response;
-                var started = task.Start(transcodingProfile, videoUrl);
+                var started = task.Start(transcodingProfile, videoUrl, transferMethod);
                 Console.WriteLine("Status URL: " + started.status_url);
                 do
                 {
