@@ -26,7 +26,10 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// </summary>
         public string tag { get; set; }
 
-        //TODO: add VideoStorageInfo
+        /// <summary>
+        /// Contains info about where the output video is stored
+        /// </summary>
+        public StorageInfo storage { get; set; }
 
     }
 }
