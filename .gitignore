@@ -1,5 +1,7 @@
-ConsoleApp/bin
-ConsoleApp/obj
+ProfileEncodingExample/bin
+ProfileEncodingExample/obj
 Qencode.Api.CSharp.Client/bin
 Qencode.Api.CSharp.Client/obj
 .vs
+CustomEncodingExample/bin
+CustomEncodingExample/obj

@@ -10,13 +10,13 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var apiKey = "yourApiKey";
-            var transcodingProfile = "yourTranscodingProfileID";
-            var transferMethod = "yourTransferMethodID";
+            var apiKey = "5a5db6fa5b4c5";
+            var transcodingProfile = "5a5db6fa5b8ac";
+            var transferMethod = "5a68fa964f41a";
             var videoUrl = "https://qa.stagevids.com/static/1.mp4";
             try
             {
-                var q = new QencodeApiClient(apiKey);
+                var q = new QencodeApiClient(apiKey, "https://api-qa.qencode.com/");
                 Console.WriteLine("Access token: " + q.AccessToken);
 
                 var task = q.CreateTask();
