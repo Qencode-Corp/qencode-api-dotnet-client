@@ -10,16 +10,18 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var apiKey = "5a5db6fa5b4c5";
-            var transcodingProfile = "5a5db6fa5b8ac";
-            var transferMethod = "5a68fa964f41a";
-            var videoUrl = "https://qa.stagevids.com/static/1.mp4";
+            var apiKey = "your_api_key";
+            var transcodingProfile = "your_transcoding_profile_id";
+            var transferMethod = "your_transfer_method_id";
+            var videoUrl = "https://qa.stagevids.com/static/test_mini.mp4";
             try
             {
-                var q = new QencodeApiClient(apiKey, "https://api-qa.qencode.com/");
+                var q = new QencodeApiClient(apiKey);
                 Console.WriteLine("Access token: " + q.AccessToken);
 
                 var task = q.CreateTask();
+                task.StartTime = 60.015;
+                task.Duration = 10.575;
                 Console.WriteLine("Created new task: " + task.TaskToken);
                 TranscodingTaskStatus response;
                 var started = task.Start(transcodingProfile, videoUrl, transferMethod);
@@ -29,10 +31,18 @@ namespace ConsoleApp
                     Thread.Sleep(5000);
                     Console.Write("Checking status... ");
                     response = task.GetStatus();
-                    Console.WriteLine(String.Format("{0} - {1}%", response.status, response.percent.ToString("0.00")));
-                } while (response.status != "completed");
-                var video = response.videos[0];
-                Console.WriteLine(video.user_tag + ": " + video.url);
+                    Console.WriteLine(String.Format("{0} - {1}%", response.status,
+                        response.percent == null ? "0" : ((float)response.percent).ToString("0.00")));
+                } while (response.status != "completed" && response.error != 1);
+                if (response.status == "completed")
+                {
+                    var video = response.videos[0];
+                    Console.WriteLine(video.user_tag + ": " + video.url);
+                }
+                else
+                {
+                    Console.WriteLine("Error: " + response.error_description);
+                }
                 Console.WriteLine("Done!");
             }
             catch (QencodeApiException e)

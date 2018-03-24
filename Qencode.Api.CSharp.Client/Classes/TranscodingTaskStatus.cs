@@ -19,7 +19,7 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// <summary>
         /// Percent of completion
         /// </summary>
-        public float percent { get; set; }
+        public float? percent { get; set; }
 
         /// <summary>
         /// Contains statuses for all output videos in a job
@@ -30,5 +30,15 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// Contains statuses for all thumbnails
         /// </summary>
         public List<ImageStatus> images { get; set; }
+
+        /// <summary>
+        /// 0 = OK, 1 = Error
+        /// </summary>
+        public int error { get; set; }
+
+        /// <summary>
+        /// Error description
+        /// </summary>
+        public string error_description { get; set; }
     }
 }

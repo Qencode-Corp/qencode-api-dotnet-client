@@ -2,6 +2,7 @@
 using Qencode.Api.CSharp.Client.Responses;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Qencode.Api.CSharp.Client.Classes
@@ -36,6 +37,9 @@ namespace Qencode.Api.CSharp.Client.Classes
         {
             get { return lastStatus; }
         }
+
+        public double StartTime { get; set; }
+        public double Duration { get; set; }
 
 
         /// <summary> Creates new transcoding task </summary>
@@ -81,7 +85,19 @@ namespace Qencode.Api.CSharp.Client.Classes
             {
                 parameters.Add("payload", payload);
             }
-            
+
+            var numberFormat = new NumberFormatInfo();
+            numberFormat.NumberDecimalSeparator = ".";
+            if (StartTime > 0)
+            { 
+                parameters.Add("start_time", StartTime.ToString("0.####", numberFormat));
+            }
+
+            if (StartTime > 0)
+            {
+                parameters.Add("duration", Duration.ToString("0.####", numberFormat));
+            }
+
             var response = api.Request<StartEncodeResponse>("start_encode", parameters) as StartEncodeResponse;
             this.statusUrl = response.status_url;
 
