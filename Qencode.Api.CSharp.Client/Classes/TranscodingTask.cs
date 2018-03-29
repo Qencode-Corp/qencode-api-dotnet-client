@@ -2,8 +2,10 @@
 using Qencode.Api.CSharp.Client.Responses;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
+using System.Threading;
 
 namespace Qencode.Api.CSharp.Client.Classes
 {
@@ -63,6 +65,9 @@ namespace Qencode.Api.CSharp.Client.Classes
             return Start(profiles, uri, transferMethod, payload);
         }
 
+        public RunWorkerCompletedEventHandler TaskCompleted;
+        public ProgressChangedEventHandler ProgressChanged;
+
         /// <summary>Starts transcoding job using specified transcoding profile or list of profiles </summary>
         /// <param name="transcodingProfile">One or several transcoding profile identifiers (as comma-separated string)</param>
         /// <param name="uri">a link to input video or TUS uri</param>
@@ -100,8 +105,57 @@ namespace Qencode.Api.CSharp.Client.Classes
 
             var response = api.Request<StartEncodeResponse>("start_encode", parameters) as StartEncodeResponse;
             this.statusUrl = response.status_url;
-
+            PollStatus();
             return response;
+        }
+
+        private void PollStatus()
+        {
+            if (TaskCompleted != null)
+            {
+                var bw = new BackgroundWorker();
+                bw.WorkerReportsProgress = true;
+                bw.DoWork += new DoWorkEventHandler(
+                delegate (object o, DoWorkEventArgs args)
+                {
+                    BackgroundWorker b = o as BackgroundWorker;
+                    int percent = 0;
+                    do
+                    {
+                        Thread.Sleep(checkStatusInterval);
+                        GetStatus();
+                        int newPercent = Convert.ToInt32(lastStatus.percent);
+                        if (newPercent > percent)
+                        {
+                            percent = newPercent;
+                            b.ReportProgress(percent, lastStatus);
+                        }
+                    } while (lastStatus.status != "completed" && lastStatus.error != 1);
+                    args.Result = lastStatus;
+                });
+
+                if (ProgressChanged != null)
+                {
+                    bw.ProgressChanged += ProgressChanged;
+                }
+
+                bw.RunWorkerCompleted += TaskCompleted;
+                bw.RunWorkerAsync();
+            }
+        }
+
+        private int checkStatusInterval = 1000;
+        public int CheckStatusInterval
+        {
+            get { return checkStatusInterval; }
+            set
+            {
+                if (value < 1000)
+                {
+                    value = 1000;
+                }
+                checkStatusInterval = value;
+            }
         }
 
         //TODO: implement startCustom transcoding method
@@ -141,6 +195,7 @@ namespace Qencode.Api.CSharp.Client.Classes
         {
             var response = api.Request<StartEncodeResponse>(methodName, parameters) as StartEncodeResponse;
             this.statusUrl = response.status_url;
+            PollStatus();
             return response;
         }
 
