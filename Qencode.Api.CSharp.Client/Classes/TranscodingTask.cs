@@ -144,7 +144,7 @@ namespace Qencode.Api.CSharp.Client.Classes
             }
         }
 
-        private int checkStatusInterval = 1000;
+        private int checkStatusInterval = 5000;
         public int CheckStatusInterval
         {
             get { return checkStatusInterval; }
