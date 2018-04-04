@@ -40,8 +40,20 @@ namespace Qencode.Api.CSharp.Client.Classes
             get { return lastStatus; }
         }
 
+        /// <summary>
+        /// A starting time in seconds in original video to make clip from
+        /// </summary>
         public double StartTime { get; set; }
+
+        /// <summary>
+        /// Duration from specified start time in original video, seconds
+        /// </summary>
         public double Duration { get; set; }
+
+        /// <summary>
+        /// Output path variables map (used to set transcoding profile output path placeholder values)s
+        /// </summary>
+        public Dictionary<string, string> OutputPathVariables { get; }
 
 
         /// <summary> Creates new transcoding task </summary>
@@ -52,6 +64,7 @@ namespace Qencode.Api.CSharp.Client.Classes
             this.api = api;
             this.taskToken = taskToken;
             this.statusUrl = null;
+            OutputPathVariables = new Dictionary<string, string>();
         }
 
         /// <summary>Starts transcoding job using specified transcoding profile list</summary>
@@ -98,9 +111,17 @@ namespace Qencode.Api.CSharp.Client.Classes
                 parameters.Add("start_time", StartTime.ToString("0.####", numberFormat));
             }
 
-            if (StartTime > 0)
+            if (Duration > 0)
             {
                 parameters.Add("duration", Duration.ToString("0.####", numberFormat));
+            }
+
+            if (OutputPathVariables.Count > 0)
+            {
+                var outputPathVars = JsonConvert.SerializeObject(OutputPathVariables,
+                    Formatting.None,
+                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                parameters.Add("output_path_variables", outputPathVars);
             }
 
             var response = api.Request<StartEncodeResponse>("start_encode", parameters) as StartEncodeResponse;
