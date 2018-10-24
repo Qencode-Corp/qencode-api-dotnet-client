@@ -11,11 +11,11 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var apiKey = "yourApiKey";
-            var videoUrl = "https://someserver.com/video.mp4";
-            var s3_path = "s3://s3-yourRegion.amazonaws.com/bucketname";
-            var s3_key = "youS3Key";
-            var s3_secret = "yourS3secret";
+            var apiKey = "5a5db6fa5b4c5";
+            var videoUrl = "https://qa.qencode.com/static/1.mp4";
+            var s3_path = "s3://s3-eu-west-2.amazonaws.com/qencode-test";
+            var s3_key = "your_s3_key";
+            var s3_secret = "your_s3_secret";
 
             var transcodingParams = new CustomTranscodingParams();
             transcodingParams.source = videoUrl;
@@ -44,7 +44,7 @@ namespace ConsoleApp
 
             try
             {
-                var q = new QencodeApiClient(apiKey, "https://api-qa.qencode.com/");
+                var q = new QencodeApiClient(apiKey);
                 Console.WriteLine("Access token: " + q.AccessToken);
 
                 var task = q.CreateTask();
@@ -57,10 +57,18 @@ namespace ConsoleApp
                     Thread.Sleep(5000);
                     Console.Write("Checking status... ");
                     response = task.GetStatus();
-                    Console.WriteLine(String.Format("{0} - {1}%", response.status, response.percent.ToString("0.00")));
+                    Console.WriteLine(String.Format("{0} - {1}%", response.status,
+                        response.percent == null ? "0" : ((float)response.percent).ToString("0.00")));
                 } while (response.status != "completed");
-                var video = response.videos[0];
-                Console.WriteLine("Playlist url: " + video.url);
+                if (response.videos.Count > 0)
+                {
+                    var video = response.videos[0];
+                    Console.WriteLine("Playlist url: " + video.url);
+                }
+                if (response.error > 0)
+                {
+                    Console.WriteLine(response.error_description);
+                }
                 Console.WriteLine("Done!");
             }
             catch (QencodeApiException e)

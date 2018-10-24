@@ -19,12 +19,12 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// <summary>
         /// Set of constraints that indicate a degree of required decoder performance for a profile.
         /// </summary>
-        public uint level { get; set; }
+        public uint? level { get; set; }
 
         /// <summary>
         /// Context-Adaptive Binary Arithmetic Coding (CABAC) is the default entropy encoder used by x264. Possible values are 1 and 0. Defaults to 1.
         /// </summary>
-        public uint coder { get; set; }
+        public uint? coder { get; set; }
 
         /// <summary>
         /// Allows B-frames to be kept as references. Possible values are +bpyramid, +wpred, +mixed_refs, +dct8×8, -fastpskip/+fastpskip, +aud Defaults to None.
@@ -43,7 +43,7 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// <summary>
         /// Defines motion detection type: 0 -- none, 1 -- spatial, 2 -- temporal, 3 -- auto. Defaults to 1.
         /// </summary>
-        public uint directpred { get; set; }
+        public uint? directpred { get; set; }
 
         /// <summary>
         /// Motion Estimation method used in encoding.Possible values are epzs, hex, umh, full. Defaults to None.

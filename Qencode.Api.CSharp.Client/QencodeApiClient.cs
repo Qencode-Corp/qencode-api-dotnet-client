@@ -5,7 +5,6 @@ using Qencode.Api.CSharp.Client.Helpers;
 using Qencode.Api.CSharp.Client.Responses;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Net;
 
 namespace Qencode.Api.CSharp.Client
@@ -54,7 +53,7 @@ namespace Qencode.Api.CSharp.Client
             get { return version; }
         }
 
-        private const string USER_AGENT = "Qencode PHP API SDK 1.0";
+        private const string USER_AGENT = "Qencode .NET API SDK 1.0";
 
         /**
 

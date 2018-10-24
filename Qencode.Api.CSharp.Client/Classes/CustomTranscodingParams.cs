@@ -17,6 +17,11 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// </summary>
         public List<Format> format { get; set; }
 
+        /// <summary>
+        /// Task callback URL to get notifications from Qencode on task events.
+        /// </summary>
+        public string callback_url { get; set; }
+
         public CustomTranscodingParams()
         {
             format = new List<Format>();

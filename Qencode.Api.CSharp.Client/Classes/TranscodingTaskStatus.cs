@@ -40,5 +40,7 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// Error description
         /// </summary>
         public string error_description { get; set; }
+
+        public string payload;
     }
 }

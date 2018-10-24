@@ -24,7 +24,7 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// <summary>
         /// Segment duration to split media (in seconds). Defaults to 8.
         /// </summary>
-        public int segment_duration { get; set; }
+        //public int? segment_duration { get; set; }
 
         /// <summary>
         /// Contains a list of elements each describing a single view stream (e.g. for HLS format).

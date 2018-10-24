@@ -21,7 +21,7 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// Note: don't specify bitrate unless you want constant bitrate for the video. 
         /// To create variable bitrate use quality param.
         /// </summary>
-        public uint bitrate { get; set; }
+        public uint? bitrate { get; set; }
 
         /// <summary>
         /// Output video stream quality (aka Constant rate factor). Use this param to produce optimized videos with variable bitrate.
@@ -29,12 +29,12 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// A lower value is a higher quality and a subjectively sane range is 18-28.
         /// Consider 18 to be visually lossless or nearly so: it should look the same or nearly the same as the input but it isn't technically lossless.
         /// </summary>
-        public uint quality { get; set; }
+        public uint? quality { get; set; }
 
         /// <summary>
         /// Rotate video through specified degrees value. Possible values are 90, 180, 270.
         /// </summary>
-        public uint rotate { get; set; }
+        public uint? rotate { get; set; }
 
         /// <summary>
         /// Output video frame rate. Defaults to original frame rate.
@@ -59,37 +59,37 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// <summary>
         /// Keyframe period (in frames). Defaults to 90.
         /// </summary>
-        public uint keyframe { get; set; }
+        public uint? keyframe { get; set; }
 
         /// <summary>
         /// Segment duration to split media (in seconds). Defaults to 8.
         /// </summary>
-        public uint segment_duration { get; set; }
+        public uint? segment_duration { get; set; }
 
         /// <summary>
         /// Specifies the start time (in seconds) in input video to begin transcoding from.
         /// </summary>
-        public uint start_time { get; set; }
+        public uint? start_time { get; set; }
 
         /// <summary>
         /// Specifies duration of the video fragment (in seconds) to be transcoded.
         /// </summary>
-        public uint duration { get; set; }
+        public uint? duration { get; set; }
 
         /// <summary>
         /// Output file audio bitrate value in kylobytes. Defaults to 64.
         /// </summary>
-        public uint audio_bitrate { get; set; }
+        public uint? audio_bitrate { get; set; }
 
         /// <summary>
         /// Output file audio sample rate. Defaults to 44100.
         /// </summary>
-        public uint audio_sample_rate { get; set; }
+        public uint? audio_sample_rate { get; set; }
 
         /// <summary>
         /// Output file audio channels number. Default value is 2.
         /// </summary>
-        public uint audio_channels_number { get; set; }
+        public uint? audio_channels_number { get; set; }
 
         /// <summary>
         /// Output file audio codec name. Possible values are: aac, vorbis. Defaults to aac.
