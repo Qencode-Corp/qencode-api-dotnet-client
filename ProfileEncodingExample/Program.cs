@@ -11,13 +11,15 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
+            //replace with your API Key
             var apiKey = "5a670e64913c2";
+            //replace with your transcoding profile ID
             var transcodingProfile = "5a670e6491581";
             var transferMethod = "";
             var videoUrl = "https://qa.qencode.com/static/1.mp4";
             try
             {
-                var q = new QencodeApiClient(apiKey, "https://api-dev.qencode.com/");
+                var q = new QencodeApiClient(apiKey);
                 Console.WriteLine("Access token: " + q.AccessToken);
 
                 var task = q.CreateTask();
