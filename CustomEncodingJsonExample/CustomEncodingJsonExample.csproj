@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="query.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="query.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Qencode.Api.CSharp.Client\Qencode.Api.CSharp.Client.csproj" />
+  </ItemGroup>
+
+</Project>

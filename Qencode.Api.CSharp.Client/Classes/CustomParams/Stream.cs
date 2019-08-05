@@ -12,12 +12,7 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         public string size { get; set; }
 
         /// <summary>
-        /// Output stream video codec. Defaults to libx264. Possible values are: libx264, libx265, libvpx, libvpx-vp9.
-        /// </summary>
-        public string video_codec { get; set; }
-
-        /// <summary>
-        /// Output video stream bitrate in kylobytes. Defaults to 512.
+        /// Output video stream bitrate in kylobits. 
         /// Note: don't specify bitrate unless you want constant bitrate for the video. 
         /// To create variable bitrate use quality param.
         /// </summary>
@@ -57,7 +52,7 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         public VideoCodecParameters video_codec_parameters { get; set; }
 
         /// <summary>
-        /// Keyframe period (in frames). Defaults to 90.
+        /// Keyframe interval (in frames). Defaults to 90.
         /// </summary>
         public uint? keyframe { get; set; }
 
@@ -74,10 +69,10 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// <summary>
         /// Specifies duration of the video fragment (in seconds) to be transcoded.
         /// </summary>
-        public uint? duration { get; set; }
+        public double? duration { get; set; }
 
         /// <summary>
-        /// Output file audio bitrate value in kylobytes. Defaults to 64.
+        /// Output file audio bitrate value in kylobits. Defaults to 64.
         /// </summary>
         public uint? audio_bitrate { get; set; }
 
@@ -96,5 +91,34 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// </summary>
         public string audio_codec { get; set; }
 
+        /// <summary>
+        /// MPEG vs JPEG YUV range
+        /// </summary>
+        public string color_range { get; set; }
+
+        /// <summary>
+        /// YUV colorspace type
+        /// </summary>
+        public string color_space { get; set; }
+
+        /// <summary>
+        /// Chromaticity coordinates of the source primaries
+        /// </summary>
+        public string color_primaries { get; set; }
+
+        /// <summary>
+        /// Color Transfer Characteristic
+        /// </summary>
+        public string color_trc { get; set; }
+
+        /// <summary>
+        /// Specifies custom file name for HLS or DASH chunk playlist.
+        /// </summary>
+        public string chunklist_name { get; set; }
+
+        /// <summary>
+        /// Allows to add a watermark / logo to the video.
+        /// </summary>
+        public Logo logo { get; set; }
     }
 }

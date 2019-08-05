@@ -10,36 +10,28 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            //replace with your API Key
+            // You can find your API key under Project settings in your Dashboard on Qencode portal
             var apiKey = "your_api_key";
-            //replace with your transcoding profile ID
-            var transcodingProfile = "5a670e6491581";
-            var transferMethod = "";
-            var videoUrl = "https://nyc3.s3.qencode.com/qencode/bbb_30s.mp4";
+
+            // This loads API query from file. 
+            // Make sure you change source video url and destination params to some actual values.
+            var transcodingParams = CustomTranscodingParams.FromFile("query.json");
+            
             try
             {
                 var q = new QencodeApiClient(apiKey);
                 Console.WriteLine("Access token: " + q.AccessToken);
 
                 var task = q.CreateTask();
-                task.StartTime = 60.015;
-                task.Duration = 10.575;
-                task.OutputPathVariables.Add("SceneID", "17056");
                 Console.WriteLine("Created new task: " + task.TaskToken);
-                task.ProgressChanged = new ProgressChangedEventHandler(
-                delegate (object o, ProgressChangedEventArgs e)
-                {
-                    Console.WriteLine(string.Format("{0}% completed", e.ProgressPercentage));
-                });
-
                 task.TaskCompleted = new RunWorkerCompletedEventHandler(
                 delegate (object o, RunWorkerCompletedEventArgs e)
-                {  
+                {
                     if (e.Error != null)
                     {
                         Console.WriteLine("Error: ", e.Error.Message);
                     }
-                    
+
                     var response = e.Result as TranscodingTaskStatus;
                     if (response.error == 1)
                     {
@@ -47,8 +39,11 @@ namespace ConsoleApp
                     }
                     else if (response.status == "completed")
                     {
-                        var video = response.videos[0];
-                        Console.WriteLine(video.user_tag + ": " + video.url);
+                        Console.WriteLine("Video urls: ");
+                        foreach (var video in response.videos)
+                        {
+                            Console.WriteLine(video.url);
+                        }
                     }
                     else
                     {
@@ -56,8 +51,8 @@ namespace ConsoleApp
                     }
                     Console.WriteLine("Done!");
                 });
-               
-                var started = task.Start(transcodingProfile, videoUrl, transferMethod);
+
+                var started = task.StartCustom(transcodingParams);
                 Console.WriteLine("Status URL: " + started.status_url);
             }
             catch (QencodeApiException e)

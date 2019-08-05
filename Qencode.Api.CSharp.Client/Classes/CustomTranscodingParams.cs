@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Qencode.Api.CSharp.Client.Classes
 {
@@ -11,6 +12,11 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// Source video URI. Can be http(s) url or tus uri
         /// </summary>
         public string source { get; set; }
+
+        /// <summary>
+        /// Source video URI. Can be http(s) url or tus uri
+        /// </summary>
+        public List<StitchVideoItem> stitch { get; set; }
 
         /// <summary>
         /// A list of objects, each describing params for a single output video stream (MP4, WEBM, HLS or MPEG-DASH).
@@ -25,6 +31,23 @@ namespace Qencode.Api.CSharp.Client.Classes
         public CustomTranscodingParams()
         {
             format = new List<Format>();
+        }
+
+        public static CustomTranscodingParams FromFile(string filename)
+        {
+            var query = System.IO.File.ReadAllText(filename);
+            return FromJSON(query);
+        }
+
+        public static CustomTranscodingParams FromJSON(string json)
+        {
+            if (json.IndexOf("\"query\"") != -1)
+            {
+                var wrapper = JsonConvert.DeserializeObject<QueryWrapper>(json);
+                return wrapper.query;
+            }
+            
+            return JsonConvert.DeserializeObject<CustomTranscodingParams>(json);
         }
     }
 }

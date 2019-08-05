@@ -21,6 +21,11 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         /// </summary>
         public string secret { get; set; }
 
+        /// <summary>
+        /// Permissions (S3 only)
+        /// </summary>
+        public string permissions { get; set; }
+
     }
     
 }

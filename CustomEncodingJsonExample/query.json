@@ -1,0 +1,29 @@
+{
+    "source": "https://nyc3.s3.qencode.com/qencode/bbb_30s.mp4",
+    "format": [
+      {
+        "output": "mp4",
+        "destination": {
+          "url": "s3://your_s3_host.com/yourbucket/path/to/video.mp4",
+          "key": "your_s3_key",
+          "secret": "your_s3_secret",
+          "permissions": "public-read"
+        },
+        "file_extension": "mp4",
+        "height": 360,
+        "duration": 60
+      },
+      {
+        "output": "thumbnails",
+        "destination": {
+          "url": "s3://your_s3_host.com/yourbucket/path/to/thumbnails",
+          "key": "your_s3_key",
+          "secret": "your_s3_secret",
+          "permissions": "public-read"
+        },
+        "interval": 5,
+        "width": 320,
+        "height": 240
+      }
+    ]
+}

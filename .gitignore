@@ -5,3 +5,8 @@ Qencode.Api.CSharp.Client/obj
 .vs
 CustomEncodingExample/bin
 CustomEncodingExample/obj
+CustomEncodingJsonExample/bin
+CustomEncodingJsonExample/obj
+CustomTranscodingParamsTest/bin
+CustomTranscodingParamsTest/obj
+ScaleTest
