@@ -1,0 +1,14 @@
+{
+  "query": {
+    "format": [
+      {
+        "output": "mp4",
+        "size": "1280x720",
+        "profile": "main",
+        "bitrate": 3800,
+        "video_codec": "libx264"
+      }
+    ],
+    "source": "tus:##TUS_FILE_UUID##"
+  }
+}
