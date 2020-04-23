@@ -6,7 +6,6 @@ namespace Qencode.Api.CSharp.Client.Helpers
 {
     public static class StringParser
     {
-        private static string pattern => @"([^/]+$)";
         public static string ConvertSourceToTus(string uriSource)
         {
             var uri = "";
