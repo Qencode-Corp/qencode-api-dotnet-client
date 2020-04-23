@@ -1,8 +1,7 @@
 ﻿using Qencode.Api.CSharp.Client.Classes.CustomParams;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
+using Qencode.Api.CSharp.Client.Helpers;
 
 namespace Qencode.Api.CSharp.Client.Classes
 {
@@ -10,8 +9,18 @@ namespace Qencode.Api.CSharp.Client.Classes
     {
         /// <summary>
         /// Source video URI. Can be http(s) url or tus uri
-        /// </summary>
-        public string source { get; set; }
+        /// </summary
+        
+        private string _source {get; set; }
+        public string source
+        {
+            get
+            {
+                return _source;
+
+            }
+            set { _source = StringParser.ConvertSourceToTus(value); }
+        }
 
         /// <summary>
         /// Source video URI. Can be http(s) url or tus uri
@@ -49,5 +58,8 @@ namespace Qencode.Api.CSharp.Client.Classes
             
             return JsonConvert.DeserializeObject<CustomTranscodingParams>(json);
         }
+
+       
+        
     }
 }
