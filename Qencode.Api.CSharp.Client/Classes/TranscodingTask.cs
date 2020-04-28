@@ -30,6 +30,15 @@ namespace Qencode.Api.CSharp.Client.Classes
         {
             get { return statusUrl; }
         }
+        
+        private string uploadUrl;
+        /// <summary
+        /// Endpoint url for direct uploads
+        /// </summary>
+        public string UploadUrl
+        {
+            get { return uploadUrl; }
+        }
 
         private TranscodingTaskStatus lastStatus;
         /// <summary
@@ -59,11 +68,12 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// <summary> Creates new transcoding task </summary>
         /// <param name="api">a reference to QencodeApiClient object</param>
         /// <param name="taskToken">transcoding task token</param>
-        public TranscodingTask(QencodeApiClient api, string taskToken)
+        public TranscodingTask(QencodeApiClient api, string taskToken, string uploadUrl)
         {
             this.api = api;
             this.taskToken = taskToken;
             this.statusUrl = null;
+            this.uploadUrl = uploadUrl;
             OutputPathVariables = new Dictionary<string, string>();
         }
 
