@@ -217,7 +217,7 @@ namespace Qencode.Api.CSharp.Client
                 { "token", accessToken }
             }) as CreateTaskResponse; 
 
-            return new TranscodingTask(this, response.task_token);
+            return new TranscodingTask(this, response.task_token, response.upload_url);
         }
     }
 }

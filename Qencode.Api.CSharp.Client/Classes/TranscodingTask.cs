@@ -19,7 +19,7 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// </summary>
         public string TaskToken
         {
-           get { return taskToken; }
+            get { return taskToken; }
         }
 
         private string statusUrl;
@@ -29,6 +29,15 @@ namespace Qencode.Api.CSharp.Client.Classes
         public string StatusUrl
         {
             get { return statusUrl; }
+        }
+
+        private string uploadUrl;
+        /// <summary
+        /// Endpoint url for direct uploads
+        /// </summary>
+        public string UploadUrl
+        {
+            get { return uploadUrl; }
         }
 
         private TranscodingTaskStatus lastStatus;
@@ -59,11 +68,12 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// <summary> Creates new transcoding task </summary>
         /// <param name="api">a reference to QencodeApiClient object</param>
         /// <param name="taskToken">transcoding task token</param>
-        public TranscodingTask(QencodeApiClient api, string taskToken)
+        public TranscodingTask(QencodeApiClient api, string taskToken, string uploadUrl)
         {
             this.api = api;
             this.taskToken = taskToken;
             this.statusUrl = null;
+            this.uploadUrl = uploadUrl;
             OutputPathVariables = new Dictionary<string, string>();
         }
 
@@ -93,7 +103,7 @@ namespace Qencode.Api.CSharp.Client.Classes
                 { "uri", uri },
                 { "profiles", transcodingProfile }
             };
-        
+
             if (transferMethod != null)
             {
                 parameters.Add("transfer_method", transferMethod);
@@ -107,7 +117,7 @@ namespace Qencode.Api.CSharp.Client.Classes
             var numberFormat = new NumberFormatInfo();
             numberFormat.NumberDecimalSeparator = ".";
             if (StartTime > 0)
-            { 
+            {
                 parameters.Add("start_time", StartTime.ToString("0.####", numberFormat));
             }
 
@@ -195,9 +205,9 @@ namespace Qencode.Api.CSharp.Client.Classes
         public StartEncodeResponse StartCustom(CustomTranscodingParams taskParams, string payload = null)
         {
             var query = new Dictionary<string, CustomTranscodingParams>() { { "query", taskParams } };
-            var query_json = JsonConvert.SerializeObject(query, 
-                Formatting.None, 
-                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
+            var query_json = JsonConvert.SerializeObject(query,
+                Formatting.None,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
             var parameters = new Dictionary<string, string>
             {
@@ -228,8 +238,8 @@ namespace Qencode.Api.CSharp.Client.Classes
             var parameters = new Dictionary<string, string>() {
                 { "task_tokens[]", this.taskToken }
             };
-               
-                //TODO: fallback to /v1/status
+
+            //TODO: fallback to /v1/status
 
             var response = api.Request<StatusResponse>(statusUrl, parameters) as StatusResponse;
             lastStatus = response.statuses[this.taskToken];
