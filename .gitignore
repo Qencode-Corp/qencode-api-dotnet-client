@@ -10,3 +10,5 @@ CustomEncodingJsonExample/obj
 CustomTranscodingParamsTest/bin
 CustomTranscodingParamsTest/obj
 ScaleTest
+*.dll
+*.exe
