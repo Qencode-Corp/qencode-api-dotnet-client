@@ -181,6 +181,26 @@ namespace Qencode.Api.CSharp.Client
             return response;
         }
 
+        public dynamic RequestDynamic<T>(string url)
+        {
+            lastResponseRaw = null;
+            lastResponse = null;
+            string requestUrl = url;
+
+            try
+            {
+                lastResponseRaw = HttpGet(requestUrl);
+            }
+            catch (Exception e)
+            {
+                throw new QencodeException("Error executing request to url: " + requestUrl, e);
+            }
+
+            var response = JsonConvert.DeserializeObject<T>(lastResponseRaw) as dynamic;
+
+            return response;
+        }
+
         /// <summary>
         /// Performs raw http post and reads response back
         /// </summary>
@@ -208,6 +228,20 @@ namespace Qencode.Api.CSharp.Client
             return sr.ReadToEnd().Trim();
         }
 
+        private static string HttpGet(string uri)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(uri);
+            req.UserAgent = USER_AGENT;
+            //req.Proxy = new System.Net.WebProxy(ProxyString, true);
+
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.Method = "GET";
+            System.Net.WebResponse resp = req.GetResponse();
+            if (resp == null) return null;
+            System.IO.StreamReader sr =
+                new System.IO.StreamReader(resp.GetResponseStream());
+            return sr.ReadToEnd().Trim();
+        }
         /// <summary>
         /// Creates new transcoding task
         /// </summary>
@@ -218,6 +252,14 @@ namespace Qencode.Api.CSharp.Client
             }) as CreateTaskResponse; 
 
             return new TranscodingTask(this, response.task_token, response.upload_url);
+        }
+
+        public dynamic GetMetadata(string uploadUrl)
+        {
+            var task = CreateTask();
+            var metadata = new Metadata(this, task.TaskToken, uploadUrl);
+            return metadata.Get(uploadUrl);
+
         }
     }
 }
