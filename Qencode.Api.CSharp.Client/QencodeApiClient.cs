@@ -259,6 +259,7 @@ namespace Qencode.Api.CSharp.Client
             var task = CreateTask();
             var metadata = new Metadata(this, task.TaskToken, uploadUrl);
             return metadata.Get(uploadUrl);
+
         }
     }
 }

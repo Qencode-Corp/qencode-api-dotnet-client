@@ -186,9 +186,24 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
         public string image_format { get; set; }
 
         /// <summary>
-        /// 
+        /// Enables Per-Title Encoding mode.
         /// </summary>
         public uint? optimize_bitrate { get; set; }
+
+        /// <summary>
+        /// Adjusts best CRF predicted for each scene with the specified value in Per-Title Encoding mode
+        /// </summary>
+        public int? adjust_crf { get; set; }
+
+        /// <summary>
+        /// Limits the lowest CRF (quality) for Per-Title Encoding mode to the specified value
+        /// </summary>
+        public uint? min_crf { get; set; }
+
+        /// <summary>
+        /// Limits the highest CRF (quality) for Per-Title Encoding mode to the specified value
+        /// </summary>
+        public uint? max_crf { get; set; }
 
         /// <summary>
         /// Allows to add a watermark / logo to the video.
