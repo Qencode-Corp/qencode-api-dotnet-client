@@ -6,6 +6,7 @@ namespace Qencode.Api.CSharp.Client.Classes.CustomParams
 {
     public class Format
     {
+        public string metadata_version { get; set; }
         /// <summary>
         /// Output video format. Currently supported values are mp4, webm, advanced_hls, advanced_dash. Required.
         /// </summary>

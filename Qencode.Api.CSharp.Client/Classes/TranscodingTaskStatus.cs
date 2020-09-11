@@ -25,6 +25,7 @@ namespace Qencode.Api.CSharp.Client.Classes
         /// Contains statuses for all output videos in a job
         /// </summary>
         public List<VideoStatus> videos { get; set; }
+        public List<VideoStatus> audios { get; set; }
 
         /// <summary>
         /// Contains statuses for all thumbnails

@@ -222,6 +222,26 @@ namespace Qencode.Api.CSharp.Client.Classes
             return _do_request("start_encode2", parameters);
         }
 
+        public StartEncodeResponse StartCustom(Dictionary<string, object> taskParams, string payload = null)
+        {
+            var query = new Dictionary<string, Dictionary<string, object>>() { { "query", taskParams } };
+            var query_json = JsonConvert.SerializeObject(query,
+                Formatting.None,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+
+            var parameters = new Dictionary<string, string>
+            {
+                {"task_token", taskToken },
+                {"query", query_json }
+            };
+            if (payload != null)
+            {
+                parameters.Add("payload", payload);
+            }
+
+            return _do_request("start_encode2", parameters);
+        }
+
         private StartEncodeResponse _do_request(string methodName, Dictionary<string, string> parameters)
         {
             var response = api.Request<StartEncodeResponse>(methodName, parameters) as StartEncodeResponse;
