@@ -40,15 +40,6 @@ namespace Qencode.Api.CSharp.Client.Classes
             get { return uploadUrl; }
         }
 
-        private string uploadUrl;
-        /// <summary
-        /// Endpoint url for direct uploads
-        /// </summary>
-        public string UploadUrl
-        {
-            get { return uploadUrl; }
-        }
-
         private TranscodingTaskStatus lastStatus;
         /// <summary
         /// Most recent task status
